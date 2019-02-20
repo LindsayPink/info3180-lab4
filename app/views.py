@@ -8,7 +8,7 @@ import os
 from app import app
 from flask import render_template, request, redirect, url_for, flash, session, abort
 from werkzeug.utils import secure_filename
-from .forms import Uploadr
+from .forms import UploadForm
 
 rootdir = os.getcwd()
 print (rootdir)
@@ -35,7 +35,7 @@ def upload():
         abort(401)
 
     # Instantiate your form class
-    filr = Uploadr()
+    filr = UploadForm()
     
     # Validate file upload on submit
     if request.method == 'POST':
