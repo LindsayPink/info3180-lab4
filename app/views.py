@@ -10,6 +10,9 @@ from flask import render_template, request, redirect, url_for, flash, session, a
 from werkzeug.utils import secure_filename
 from .forms import Uploadr
 
+rootdir = os.getcwd()
+print (rootdir)
+
 ###
 # Routing for your application.
 ###
@@ -33,6 +36,7 @@ def upload():
 
     # Instantiate your form class
     filr = Uploadr()
+    
     # Validate file upload on submit
     if request.method == 'POST':
         if filr.validate_on_submit():
@@ -45,6 +49,12 @@ def upload():
 
     return render_template('upload.html', form=filr)
 
+@app.route('/files')
+def files():
+    if not session.get('logged_in'):
+        abort(401)
+        
+    return render_template('files.html', images=get_uploaded_images())
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -66,6 +76,13 @@ def logout():
     flash('You were logged out', 'success')
     return redirect(url_for('home'))
 
+def get_uploaded_images():
+    for subdir, dir, files in os.walk(rootdir + '/app/static/uploads'):
+        imgList = []
+        for file in files:
+            if file.endswith('.png') or file.endswith('.jpg'):
+                imgList.append(os.path.basename(file))
+    return imgList
 
 ###
 # The functions below should be applicable to all Flask apps.
