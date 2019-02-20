@@ -5,7 +5,6 @@ body {
 .ulist {
     list-style: none;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
@@ -16,5 +15,5 @@ body {
     height: 250px;
     border: solid 1px gray;
     border-radius: 2px;
-    margin-bottom: 10px;
+    margin: 5px;
 }
