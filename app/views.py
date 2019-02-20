@@ -45,8 +45,9 @@ def upload():
             
             file.save(os.path.join("./app/static/uploads", filename))
             flash('File Saved', 'success')
+        flash_errors(filr)
         return redirect(url_for('home'))
-
+    
     return render_template('upload.html', form=filr)
 
 @app.route('/files')
